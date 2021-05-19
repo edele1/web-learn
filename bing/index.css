@@ -3,6 +3,8 @@ body{
     height:100%;
     background:url("img/bg.jpg" )no-repeat;
     background-size:cover;
+    /* margin:0; */
+    font-size:small;
 }
 div{
     display:block;
@@ -15,7 +17,9 @@ li{
     display: inline-block;
 }
 .container{
- 
+    /* display: flex;
+    min-height: 100vh;
+    flex-direction: column; */
 }
 .nav{
     padding: 0;
@@ -41,7 +45,7 @@ li{
     float: right;
     margin-right: 88px;
     height:43px !important;
-    width:30%;
+    width:auto;
     text-align: right;
     display: inline-block;
     margin-top: 13px;
@@ -51,6 +55,7 @@ li{
     padding:0 12px;
     margin-right: 2px;
     color: #fff;
+    float: left;
 }
 #id_s{
     margin-right: 2px;
@@ -63,26 +68,144 @@ li{
     margin:1px 3px 2px 8px;
     border-radius: 16px;
     background-color: #ececec;
-    background-position: -11px -149px;
-    
+    background-position: 1px 1px;
+    background-image:url(img/head.png)
 }
-#id_sc{
 
+#id_sc{
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    margin-left: 8px;
+    margin-bottom: 14px;
+    background-image: url(img/three.png);
+    vertical-align: bottom;
+    float: right;
 }
 .main{
-    background-color: antiquewhite;
     position: absolute;
     top: 20%;
-    left: 8%;
+    left: 65px;
     margin: 0;
     z-index: 9;
+    /* flex: 1; */
 }
 .logo{
     float: left;
     width: 153px;
     margin-right: 21px;
-    /* padding-top: 11px; */
+    /* background-color:aqua; */
     padding-top: 9px;
+}
+.top_l {
+    fill: #f26522;
+}
+.top_r {
+    fill: #8dc63f;
+}
+.bom_l {
+    fill: #00aeef;
+}
+.bom_r {
+    fill: #ffc20e;
+}
+.ms_text, .b_text {
+    fill: white;
+    display: inline-block;
+}
+.ms_text {
+    width:auto;
+    height:auto
+}
+.b_text {
+    width:auto;
+    height:auto
+}
+.switch{
+    position: absolute;
+    margin-top: -36px;
+    margin-left: 174px;
+    z-index: 2;
+    width:165px;
+    height: 36px;
+}
+#cn,#en{
+    text-decoration:none;
+    position: relative;
+    display: inline-block;
+    height: 26px;
+    line-height: 26px;
+    font-size: 16px;
+    text-align: center;
+    cursor: pointer;
+    padding: 5px 17px;
+    color: #464646;
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;   
+}
+
+#cn{
+    background: #fff;
+    border-bottom: none;
+    position:absolute;
+    top: 4px;
+    bottom: -1px;
+    left:0;
+    z-index: -1;
+    transform: scale(1.1,1.3) perspective(.5em) rotateX(
+2.2deg
+);
+    transform-origin: bottom left;
+}
+#en{
+    transform: scale(1.1,1.3) perspective(.5em) rotateX(
+2.2deg
+);
+    background: #fff;
+    top: 4px;
+    z-index:-2;
+    border-bottom: none;
+    float: right;
+    text-shadow: 0 0 3px white;
+    background: rgba(255,255,255,.8);
+}
+
+.search{
+    border-radius: 6px;
+    background-color: #fff;
+    border: 1px #ccc solid;
+    padding: 0;
+    box-shadow: 0 2px 4px rgb(0 0 0 / 30%);
+    width: 546px;
+    height: 45px;
+    margin-left: 174px;
+}
+#s_icon{
+    float:right;
+    display:inline;
+    height: 30px;
+    width: 30px;
+    border: 8px solid transparent;
+    background: transparent url(img/hpc.png) no-repeat;
+    background-position: -169px -63px;
+    overflow: hidden;
+    vertical-align: top;
+}
+.bottom{
+    width:100%;
+    height:auto;
+    margin-left:-8px ;
+    bottom:0;
+    position: absolute;
+}
+.rdiv{
+    height: 80px;
+}
+#rdiv_img{
+    height:44px;
+    position: absolute;
+    right: 50px;
+    margin-top: 20px;
 }
 .footer{
     overflow: hidden;
@@ -90,7 +213,49 @@ li{
     font-weight: 400;
     z-index: 11;
     width: 100%;
+    height:auto;
     position: relative;
     border: 0;
     padding: 0;
+    
+}
+.f_left a,.f_right{
+    text-decoration:none;
+    color:#666;
+    font-weight: 400;
+    line-height: 35px;
+}
+.f_left{
+    float:left;
+    width:70%;
+}
+.f_left ul{
+    margin-top:0 !important;
+    margin-bottom:0;
+}
+.f_left li{
+    margin-right: 24px;
+}
+.f_right{
+    float:right;
+    
+    margin-top: 24px;
+    margin-right: 44px;
+}
+.icon{
+    display: inline-block;
+    background: transparent url(img/icon.png); 
+    overflow: hidden;
+    width: 40px;
+    height: 40px;
+    margin: 0 10px;
+}
+#ic_left{
+    background-position: 0 -84px
+}
+#ic_right{
+    background-position: 0 -126px;
+}
+#ic_i{
+    background-position: 0 -42px;
 }
