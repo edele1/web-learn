@@ -46,9 +46,7 @@ p{
     margin-top: 7px;
 }
 .main .right{
-    margin-right: 10px;
-    justify-self: flex-end;
-    align-self:flex-end;
+    margin-left:auto ;
 }
 
 .main li{
@@ -149,14 +147,11 @@ p{
     margin-top: 15px;
 }
 .main_i{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-items:center;
     background-color:#f6f6f6;
-    max-width: 700px;
     padding:35px 282px 45px 282px;  
+}
+.sponsors-div{
+    text-align: center;
 }
 .main_i h3{
     text-align: center;
@@ -169,11 +164,7 @@ p{
     justify-content: center;
     width:100%;
 }
-.f_img{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-}
+
 .main_i img{
     margin: 20px 15px 0;
 }
@@ -189,22 +180,34 @@ p{
 .button{
     padding: 0.75em 2em;
     border-radius: 2em;
-   
-    
     background-color: #fff;
     color: #42b983;
     transition: all 0.15s ease;
     box-sizing: border-box;
     border: 1px solid #4fc08d;
 }
-.s{
+.align-center-div {
     display: flex;
-    align-items: center;
-    justify-content:center;
-    flex-direction: row;
+    justify-content: center;
+  }
+.open{
+    margin-top:40px !important;
+}
+.plat{
+    color: #999;
+    margin-bottom: 0;
     text-align: center;
 }
+.main_l{
+    padding: 59px 20px 86px;
+    text-align: center;
 
+}
 .footer{
+    background: RGB(71,80,80);
+    text-align: center;
+}
+.footer img{
+    padding:40px 0;
     
 }
