@@ -5,6 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js" ></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js"></script>
     <title>Document</title>
 </head>
 <body>
@@ -16,23 +18,100 @@
           {{ item.message }}
         </li>
       </ul>
+      <button v-on:click='highlight' >打个招呼吧</button>
+      <p>hi,{{name}}</p>
+      <input type="text"v-model="name"/>
+      <div>{{ fullName }}</div>
+      <p>
+        Ask a yes/no question:
+        <input v-model="question">
+      </p>
+      <p>{{ answer }}</p>
+      <!-- <table>
+        <tr v-for="blog in blogs">
+          <td></td>
+        </tr>
+      </table> -->
     </div>
 <script>
-var example1 = new Vue({
+var vnm = new Vue({
     el: '#app',
     data: {
+      firstName: 'Foo',
+      lastName:'Bar',
+
+      name:'vue',
         isActive:false,
-        // mc:'blue',
+
+        question: '',
+        answer: 'I cannot give you an answer until you ask a question!',
+
         sobj: {
             color:'red',
             fontSize:'30px'
-
-        },
+        },    
       items: [
         { message: 'Foo' },
         { message: 'Bar' }
-      ]
+      ],
+      
+    },
+    watch: {
+    // 如果 `question` 发生改变，这个函数就会运行
+    question: function (newQuestion, oldQuestion) {
+      this.answer = 'Waiting for you to stop typing...'
+      this.debouncedGetAnswer()
     }
+  },
+  created: function () {
+    
+    this.debouncedGetAnswer = _.debounce(this.getAnswer, 500)
+  },
+    computed: {
+       fullName: {
+    // getter
+    get: function () {
+      return this.firstName + ' ' + this.lastName
+    },
+    // setter
+    set: function (newValue) {
+      var names = newValue.split(' ')
+      this.firstName = names[0]
+      this.lastName = names[names.length - 1]
+    }
+  }
+},
+    methods: {
+          // highlight:function(){
+          //   alert('Hello,')
+          // },
+          getAnswer: function () {
+      if (this.question.indexOf('?') === -1) {
+        this.answer = 'Questions usually contain a question mark. ;-)'
+        return
+      }
+      this.answer = 'Thinking...'
+      var vm = this
+      axios.get('https://yesno.wtf/api')
+        .then(function (response) {
+          vm.answer = _.capitalize(response.data.answer)
+        })
+        .catch(function (error) {
+          vm.answer = 'Error! Could not reach the API. ' + error
+        })
+    }
+  
+        }
+    // mounted(){
+    //   this.$http.get('api/interface/blogs/all').then((response)=>{
+    //     console.info(response.body)
+    //     this.blogs=response.body.blogs
+    //   },(response)=>{
+    //     console.error(response)
+    //   });
+    // },
+    
+    
   })
   </script>
 <style>

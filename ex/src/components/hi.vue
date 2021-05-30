@@ -3,28 +3,34 @@
       hi
       <p>{{ message }}</p>
       <input type="button" @click="say_hi('jim')" value="..."/>
-      <ul>
+      <!-- <ul>
         <li v-for="item in items" :key="item.message">
           {{ item.message }}
         </li>
-      </ul>
+      </ul> -->
+      <div>{{ fullName }}</div>
   </div>
 </template>
 
 <script>
 export default {
-    data() {
-        
-       items: [
-          { message:'a' },
-          { message:'b' },
-          { message:'c' }
-        ]
-        return {
+    data(){
+        firstName:'Foo',
+        lastName :'Bar'
+      //  items: [
+      //     { message:'a' },
+      //     { message:'b' },
+      //     { message:'c' }
+      //   ]
+        return{
           message: 'nihao'
         }
     },
-    methods: {
+    computed: {
+      fullName:function(){
+        return this.firstName + '' + this.lastName
+      }},
+    methods:{
         say_hi:function(name){
           alert('hi,'+name)
         },
