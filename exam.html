@@ -8,38 +8,36 @@
     <title>Document</title>
 </head>
 <body>
-    <div id="counter_event" class="demo">
-        <p>{{ total }}</p>
-        <button-counter v-on:increment="incrementTotal"></button-counter>
-        <button-counter v-on:increment="incrementTotal"></button-counter>
+    <div id="currency-example" >
+        <currency-input v-model="price">
+        </currency-input>
+        <p>hi,{{ price }}</p>
     </div>
-    <script type="text/javascript">
-    Vue.component('button-counter',{
-        template:'<button v-on:click="incrementCounter">{{ counter }}</button>',
-        data:function(){
-            return{
-                counter:0
+    <script>
+        Vue.component('currency-input',{
+            template:'\
+            <span>\
+            $\
+            <input \
+            ref="input"\
+            v-bind:value="value"\
+            v-on:input="updataValue($event.target.value)">\
+            </span>',
+            props:['value'],
+            methods: {
+                updateValue: function(value) {
+                    let formattedValue = value.trim()
+                    if (formattedValue !== value){
+                        this.$refs.input.value = formattedValue
+                    }
+                    this.$emit('input',Number(formattedValue))
+                }
             }
-        },
-        methods: {
-            incrementCounter: function(){
-                this.counter +=1
-                this.$emit('increment')
-            }
-        }
-
-    })
-    new Vue({
-        el:'#counter_event',
-        data:{
-            total:0
-        },
-        methods: {
-            incrementTotal: function(){
-                this.total +=1
-            }
-        }
-    })
+        })
+        new Vue({
+            el:"#currency-example", 
+            data: {price:'1'}
+        })
         </script>
 </body>
 </html>
