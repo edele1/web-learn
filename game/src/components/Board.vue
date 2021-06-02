@@ -22,7 +22,6 @@
 </template>
 
 <script>
-// import { computed, ref }from 'vue'
 
 function calculateWinner(squares) {
   const lines = [
