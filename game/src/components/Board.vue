@@ -13,8 +13,8 @@
           <div v-if="winner">Winner： {{ winner }}</div>
           <div v-else>Next player ： {{ player }}</div>
           <ol>
-              <li>
-                  <button v-on:click="history">Move to:{{ step }}</button>
+              <li v-for="squares in history" :key="squares">
+                  <button @click="jump(step)">Move to:{{ step }}</button>
               </li>
           </ol>
       </div>
@@ -22,28 +22,9 @@
 </template>
 
 <script>
-export default {
-  name:'Board',
-data(){
-  return{
-    step:0,
-    squares:[
-      ['','',''],
-      ['','',''],
-      ['','','']
-    ],
-    history:[
-      {x:0,y:0,content:'x'},
-      {x:1,y:1,content:'o'}
-    ],
-    player:'x',
-    winner:'',
-  }
-},
-created(){},
-mounted(){},
+// import { computed, ref }from 'vue'
+
 function calculateWinner(squares) {
-// const calculateWinner = squares =>{
   const lines = [
     [0, 1, 2],
     [3, 4, 5],
@@ -62,37 +43,60 @@ function calculateWinner(squares) {
   }
   return null;
 }
+export default {
+  name:'Board',
+data(){
+  return{
+    step:0,
+    squares:[
+      ['','',''],
+      ['','',''],
+      ['','','']
+    ],
+    history:[],
+    player:'x',
+    winner:'',
+  }
+},
+created(){},
+mounted(){},
+
 
 methods:{
   move(x,y){
     if(this.squares[x][y]){
-      alert('不能下在此处')
+      alert('不能下')
       return
     }
     this.step +=1
-    this.history.push({ x,y,content:this.player})
+    this.history.push({
+      status:[this.squares[x][y]],
+      player:this.player,
+    })
     this.squares[x][y]=this.player
     this.player=this.player === 'x'?'o':'x'
-    if (calculateWinner(squares)) {
-  alert('胜负已定！');
-  return;
-}
-
-const winner = calculateWinner(squares);
-if (winner) {
-  this.status = '获胜者: ' + winner;
-  return;
-}
-
-  },
-
+    const square=this.squares.flat()
+    if(calculateWinner(square)){
+      this.winner=this.player
+      alert('胜负已定')
+      return
+    }
 },
-watch:{
-  move(x,y){
-    this.history
-  }
-  }
+
+  jump(step){
+    this.squares=this.history.status
+    this.history.splice(step,this.history.length - step)
+  },
+  
 }
+
+}
+// watch:{
+//   move(x,y){
+//     this.history
+//   }
+//   }
+
 </script>
 
 <style>
