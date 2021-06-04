@@ -1,20 +1,14 @@
 <template>
   <div class="game">
-      <div class="game-board">
-          <div>
-              <div v-for="(_,x) in 3" :key="x" class="board-row">
-                  <button v-for="(_,y) in 3" :key="y" class="square" @click="move(x,y)">
-                      {{ squares[x][y] }}
-                  </button>
-              </div>   
-          </div>
-      </div>
+      <ul class="board">
+        <li class="square" v-for="(i,idx) of squares" :key="idx" @click="move(idx)">{{squares[idx]}}</li>
+      </ul>
       <div class="game-info">
           <div v-if="winner">Winner： {{ winner }}</div>
           <div v-else>Next player ： {{ player }}</div>
           <ol>
-              <li v-for="squares in history" :key="squares">
-                  <button @click="jump(step)">Move to:{{ step }}</button>
+              <li v-for="(i,idx) of history" :key="idx">
+                  <button @click="jump(idx)">Move to:{{ idx+1 }}</button>
               </li>
           </ol>
       </div>
@@ -22,8 +16,23 @@
 </template>
 
 <script>
+export default {
+  name:'Board',
+data(){
+  return{
+    squares:['', '', '', '', '', '', '', '', ''],
+    history:[],
+    player:'x',
+    winner:'',
+  }
+},
+created(){},
+mounted(){},
 
-function calculateWinner(squares) {
+
+methods:{
+
+  calculateWinner(squares) {
   const lines = [
     [0, 1, 2],
     [3, 4, 5],
@@ -41,61 +50,36 @@ function calculateWinner(squares) {
     }
   }
   return null;
-}
-export default {
-  name:'Board',
-data(){
-  return{
-    step:0,
-    squares:[
-      ['','',''],
-      ['','',''],
-      ['','','']
-    ],
-    history:[],
-    player:'x',
-    winner:'',
-  }
 },
-created(){},
-mounted(){},
-
-
-methods:{
-  move(x,y){
-    if(this.squares[x][y]){
+  move(idx){
+    if(this.squares[idx] || this.winner){
       alert('不能下')
       return
     }
-    this.step +=1
-    this.history.push({
-      status:[this.squares[x][y]],
-      player:this.player,
-    })
-    this.squares[x][y]=this.player
+    this.squares[idx]=this.player
     this.player=this.player === 'x'?'o':'x'
-    const square=this.squares.flat()
-    if(calculateWinner(square)){
-      this.winner=this.player
-      alert('胜负已定')
+    this.history.push({
+      squares:this.player
+    })
+    const calculateWinner=this.$options.methods.calculateWinner
+    const win=calculateWinner(this.squares)
+    if(win){
+      this.winner= this.squares[idx]
       return
     }
+    return
 },
-
   jump(step){
-    this.squares=this.history.status
-    this.history.splice(step,this.history.length - step)
+    // const square = this.$options.methods.move
+    this.squares=this.history[step]
+
+
+
   },
   
 }
 
 }
-// watch:{
-//   move(x,y){
-//     this.history
-//   }
-//   }
-
 </script>
 
 <style>
@@ -106,37 +90,47 @@ body {
 
 ol, ul {
   padding-left: 30px;
+  list-style: none;
 }
 .status {
   margin-bottom: 10px;
 }
-
-.square {
-  background: #fff;
-  border: 1px solid #999;
-  float: left;
-  font-size: 24px;
-  font-weight: bold;
-  line-height: 34px;
-  height: 34px;
-  margin-right: -1px;
-  margin-top: -1px;
-  padding: 0;
-  text-align: center;
-  width: 34px;
-}
-
-.square:focus {
+.board {
+		display: flex;
+    width:200px;
+    height:150px;
+		flex-wrap: wrap;
+		overflow: hidden;
+	}
+	.square {
+    background: #fff;
+		height: 50px;
+		width: 50px;
+		border: 1px solid #999;
+		flex: 0 0 auto;
+		font-size: 30px;
+		font-weight: 600;
+		line-height: 50px;
+		text-align: center;
+	}
+/* .square:focus {
   outline: none;
-}
+} */
 
-.kbd-navigation .square:focus {
+/* .kbd-navigation .square:focus {
   background: #ddd;
-}
+} */
 
 .game {
-  display: flex;
-  flex-direction: row;
+		display: flex;
+		width: 450px;
+		height: 306px;
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		margin: auto;
 }
 
 .game-info {
