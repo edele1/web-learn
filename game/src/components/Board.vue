@@ -59,7 +59,7 @@ methods:{
     this.squares[idx]=this.player
     this.player=this.player === 'x'?'o':'x'
     this.history.push({
-      squares:this.player
+      squares:this.squares[idx],
     })
     const calculateWinner=this.$options.methods.calculateWinner
     const win=calculateWinner(this.squares)
@@ -72,9 +72,6 @@ methods:{
   jump(step){
     // const square = this.$options.methods.move
     this.squares=this.history[step]
-
-
-
   },
   
 }
