@@ -8,7 +8,7 @@
           <div v-else>Next player ： {{ player }}</div>
           <ol>
               <li v-for="(i,idx) of history" :key="idx">
-                  <button @click="jump(idx)">Move to:{{ idx+1 }}</button>
+                  <button @click="jump(idx+1)">Move to:{{ idx+1 }}</button>
               </li>
           </ol>
       </div>
@@ -59,6 +59,7 @@ methods:{
     this.squares[idx]=this.player
     this.player=this.player === 'x'?'o':'x'
     this.history.push({
+      id:idx,
       squares:this.squares[idx],
     })
     const calculateWinner=this.$options.methods.calculateWinner
@@ -70,9 +71,17 @@ methods:{
     return
 },
   jump(step){
-    // const square = this.$options.methods.move
-    this.squares=this.history[step]
+    const history = this.history.slice(0,step)
+    this.recoverFromHistory(history)
   },
+  recoverFromHistory(history){
+    const squares =[]
+    this.squares.forEach((square,index) => {
+      const his=history.find((i) => i.id === index)
+      squares.push((his && his.squares) || '')
+    })
+    this.squares = squares
+  }
   
 }
 
