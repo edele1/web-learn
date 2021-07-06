@@ -2,21 +2,27 @@
     <div id="app">
         <header class="header" style="display:block">
             <h1>todos</h1>
-            <input class="new-todo" placeholder="What needs to be done?">
+            <input class="new-todo" autofocus autocomplete="off"  
+            placeholder="What needs to be done?"  @keyup.enter="addTodo">
         </header>
-        <section class="main" style="display:block">
-            <label for="toggle-all"></label>
+        <section class="main" style="display:block" v-if="todos.length">
+            <label for="toggle-all">Mark all as complete</label>
             <ul class="todo-list">
-                <li class="todo">
+                <li v-for="(item,index) in todos"
+                :key="item.id"
+                :class="{completed:item.completed}">
                     <div class="view">
-                        <input type="checkbox" class="toggle">
-                        <label>11</label>
-                        <button class="destroy"></button>
+                        <input type="checkbox" class="toggle" v-model="item.completed">
+                        <label>{{ item.content }}</label>
+                        <button class="destroy"  @click="destroyTodo(index)"></button>
                     </div>
                 </li>
+                <!-- <div v-for="(item,index) in todosInView" :key="item.id">
+                    <todo-item :item="item" @toggleCompleted="toggleCompleted(index)" @removeSelf="removeTodo(index)" />
+                </div> -->
             </ul>
         </section>
-        <footer class="footer" style="display:block">
+        <footer class="footer" style="display:block" v-if="todos.length">
             <span class="todo-count">{{}} item left</span>
             <ul class="filters">
                 <li>All</li>
@@ -25,12 +31,49 @@
             </ul>
             <button class="clear-completed" style="display:none">Clear completed</button>
         </footer>
+        <!-- <todo-footer v-if="todos.length" :itemsLeft="remaining.length" :currentView="currentView" :clearCompleted="clearCompleted" /> -->
     </div>
 </template>
 
 <script>
-export default {
+// import todoHeader from './todoHeader';
+// import todo from './todo'
+// import todoFooter from './todoFooter';
+// import todoItem from './todoItem';
 
+export default {
+    name:'todo',
+
+    component:{
+        // todo,
+        // todoHeader,
+    //     todoFooter,
+    //     todoItem
+    },
+    data(){
+        return{
+            todos: [], 
+        }
+    },
+    methods: {
+        addTodo ($event) {
+            // 创建 newTodo 对象，获取数据
+            const newTodo = {
+            id: this.todos.length + 1,
+            content: $event.target.value.trim(),
+            completed: false
+        }
+            // 如果内容为空，什么都不做 
+            if (!newTodo.content.length) return;
+            // 如果内容不为空，将 newTodo 加入 todos 中
+            this.todos.push(newTodo);
+            $event.target.value = ''
+        },
+        destroyTodo(index){
+            // 用 splice 方法通过参数 index 来找到要删除的 todo，删除一项
+            this.todos.splice(index, 1)
+        }
+    },
 }
 </script>
 
