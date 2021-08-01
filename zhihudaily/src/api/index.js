@@ -3,6 +3,7 @@ axios.defaults.baseUrl ="http://localhost:8080/api";
 axios.interceptors.response.use(res=>{
     return res.data;
 },error=>{
+    console.log(error.toJSON())
     return Promise.reject(error);
 })
 
