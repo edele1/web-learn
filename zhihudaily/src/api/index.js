@@ -1,8 +1,10 @@
 import axios from 'axios';
-axios.defaults.baseUrl ="http://localhost:8080/api";
-axios.interceptors.response.use(res=>{
+axios.defaults.baseURL ="http://localhost:8080/api";
+axios.interceptors.response.use(
+    (res)=>{
     return res.data;
-},error=>{
+},
+(error)=>{
     console.log(error.toJSON())
     return Promise.reject(error);
 })
