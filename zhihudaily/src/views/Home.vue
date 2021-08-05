@@ -1,63 +1,60 @@
 <template>
 <!-- 头部 -->
-<div class="block">
-  <header>
+<div class="clock">
+  <header class="head">
     <div class="head-left">
-      <span id="day">{{day}}</span>
-      <span id="month">{{}}</span>
+      <div id="day">5</div>
+      <div id="month">8月</div>
     </div>
-    <div class="head-middle"></div>
+    <div id="vert"></div> 
+    <div class="head-mid">知乎日报</div>
     <div class="head-right"></div>
   </header>
 
  <!-- 轮播图 -->
-    <el-carousel>
+    <el-carousel class="nav">
       <el-carousel-item v-for="item in items" :key="item.id">
-        <a :href="item.url">
+        <router-link :to="{name:'NewDetail',params:{id:20210805}}">
           <img :src="item.image"/>
-        </a>
+        </router-link>
       </el-carousel-item>
     </el-carousel>
   
 <!-- 列表 -->
-   <div>
+   <div >
      <!-- 今日 -->
      <ul>
-       <li 
+       <li class="list"
        v-for="list in lists" :key="list.id">
-       <span>{{list.title}}</span>
-       <img :src="list.images" alt=""/>
+       <div class="list-text">
+       <div class="list-title">{{list.title}}</div>
+       <div class="list-hint">{{list.hint}}</div>
+       </div>
+       <img class="list-img"
+        :src="list.images" alt=""/>
        </li>
       </ul>
+   </div>
 
-      <!-- 往日 -->
-      <ul v-infinite-scroll="load">
-       <li 
-       v-for="beforelist in beforelists" :key="beforelist.id">
-       <span>{{beforelist.title}}</span>
-       <img :src="beforelist.images" alt=""/>
-       </li>
-       <p v-if="loading">加载中...</p>
-     </ul>
-   </div> 
+   <before-news></before-news>
 </div>
 </template>
 
 <script>
-import {getLatest,getNewById,getNewBefore} from '@/api'
-
+import {getLatest} from '@/api'
+import BeforeNews from './BeforeNews.vue'
 
 export default {
   name: 'Home',
-  
+  components: {
+    BeforeNews
+  },
   data () {
     return {
+      // test:[1,2],
     items:[],
     lists:[],
-    beforelists:[],
-    dateStr:'',
-    count: 10,
-    loading: false
+    day:[],
     }
   },
 
@@ -65,33 +62,9 @@ export default {
 
     },
     methods: {
-      load () {
-        this.loading = true
-        setTimeout(() => {
-          this.lists = this.lists
-          this.loading = false
-        }, 1000)
-        // return new Promise(
-        //   (res)=>{
-        //     getNewBefore()
-        //   }
-        // )
-      },
       
-  // 格式化时间
-  getDate(){
-    let date = new Date();
-    console.log(date);
-    let year = date.getFullYear();
-    let month = date.getMonth() +1;
-    let day = date.getDate();
-    month = month<10? "0"+month: month;
-    day = day<10? "0"+day: day;
-    return this.dateStr = year + month + day;
-  },
     },
 
-  
   //异步获取数据
   async created() {
     let items = await getLatest();
@@ -99,33 +72,86 @@ export default {
     // console.log(this.items);
     let lists = await getLatest();
     this.lists=lists.stories;
+    let {date}=lists;
+    this.day=date;
     // console.log(this.lists)
-    this.getDate();
-    console.log(this.dateStr);
-    console.log(date);
-    let beforelists = await getNewBefore(this.dateStr);
-    this.beforelists=beforelists.stories;
-    
-    //console.log(this.beforelists);
+ 
+    // console.log(this.beforelists);
   },
-  
 
-  components: {
-    
-  }
 }
 </script>
-<style scoped >
+<style>
 .block{
   width: 800px;
   margin:0 auto;
 }
-img{
+.head{
+  background-color: #fff;
+  height:50px;
+  display: flex;
+  flex-direction:row;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  z-index: 99;
+}
+.head-left{
+flex-grow:1;
+}
+#day{
+  font-weight: bolder;
+  font-size:20px;
+  text-align: center;
+}
+#month{
+  text-align: center;
+  font-weight: normal;
+}
+#vert{
+  margin-top: 5px;
+  width: 1px;
+  height: 40px;
+   background: darkgray;
+}
+.head-mid{
+  flex-grow:8;
+  padding-left:20px;
+  font-weight:bolder;
+  font-size:20px;
+  line-height: 50px;
+}
+.nav img{
   width:100%;
   height:90%
 }
-.carousel-item{
-  float: left;
+ul{
+  list-style-type:none;
+  padding:0 10px;
+}
+.list{
+  display: flex;
+  margin-top:10px;
+}
+.list-text{
+  
+}
+.list-title{
+  font-weight: bold;
+  font-size:18px;
+  padding-right:2px;
+}
+.list-hint{
+  color:rgb(207, 207, 207);
+  font-size:9px;
+  margin-top:5px;
+
+}
+.list-img{
+  margin-left: auto;
+  width:20%;
+  height:20%;
 }
 
 </style>
