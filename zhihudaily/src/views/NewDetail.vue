@@ -1,6 +1,5 @@
 <template>
-  <div>
-      {{text}}
+  <div v-html="text.body">
   </div>
 </template>
 
@@ -9,11 +8,14 @@ import {getNewById} from '@/api'
 export default {
 data(){
   return {
-    text:[]
+    text:[],
+    id:''
   }
 },
+
 async created(){
-  let text = await getNewById(3977867);
+  this.id = this.$route.params.id
+  let text = await getNewById(this.id);
   this.text=text
   
 }
