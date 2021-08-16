@@ -11,6 +11,8 @@
     "core-js": "^3.6.5",
     "element": "^0.1.4",
     "element-ui": "^2.15.3",
+    "lib-flexible": "^0.3.2",
+    "lodash": "^4.17.21",
     "style.css": "^1.0.0",
     "vue": "^2.6.11",
     "vue-router": "^3.2.0",
@@ -18,14 +20,23 @@
   },
   "devDependencies": {
     "@babel/preset-env": "^7.14.8",
+    "@types/lodash": "^4.14.172",
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-router": "~4.5.0",
     "@vue/cli-plugin-vuex": "~4.5.0",
     "@vue/cli-service": "^3.12.1",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^8.2.2",
     "babel-plugin-component": "^1.1.1",
+    "babel-plugin-lodash": "^3.3.4",
+    "babel-preset-env": "^1.7.0",
+    "lodash-webpack-plugin": "^0.11.6",
+    "px2rem-loader": "^0.1.9",
     "stylus": "^0.54.7",
     "stylus-loader": "^3.0.2",
-    "vue-template-compiler": "^2.6.11"
+    "vue-template-compiler": "^2.6.11",
+    "webpack": "^4.46.0",
+    "webpack-bundle-analyzer": "^4.4.2"
   },
   "browserslist": [
     "> 1%",

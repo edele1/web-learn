@@ -11,6 +11,8 @@
     <div class="head-right"></div>
   </header>
 
+  
+
  <!-- 轮播图 -->
     <el-carousel class="nav">
       <el-carousel-item v-for="item in items" :key="item.id">
@@ -19,7 +21,6 @@
         </router-link>
       </el-carousel-item>
     </el-carousel>
-  
 <!-- 列表 -->
    <div >
      <!-- 今日 -->
@@ -84,7 +85,7 @@ export default {
     let {date}=lists;
     this.day=date;
     // console.log(this.lists)
-    console.log(this.day);
+    // console.log(this.day);
   },
 
 }
@@ -140,22 +141,23 @@ export default {
   }
   .list{
     display: flex;
-    margin-bottom:20px;
+    align-items: center;
+    margin-bottom:.625rem;
   }
   .list-text{
     padding-right:4px;
   }
   .list-title{
     font-weight: bold;
-    font-size:16px;
+    font-size:0.5rem;
   }
   .list-hint{
     color:rgb(207, 207, 207);
-    font-size:9px;
+    font-size:.4rem;
     margin-top:5px;
   
   }
-  .list-img{
+  .list img{
     margin-left: auto;
     width:20%;
     height:20%;
@@ -168,6 +170,10 @@ export default {
   a:visited{
       color:grey
   }
-  
+  @media screen and (min-width: 900px){
+    .nav{
+      display:none
+      }
+  }
 
 </style>

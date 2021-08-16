@@ -1,9 +1,9 @@
 <template>
-  <div v-html="text.body">
+  <div v-html="text.body" :style="text.css" :script="text.js">
   </div>
 </template>
 
-<script>
+<script >
 import {getNewById} from '@/api'
 export default {
 data(){
@@ -23,6 +23,6 @@ async created(){
 }
 </script>
 
-<style>
+<style >
 
 </style>
