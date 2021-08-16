@@ -1,0 +1,25 @@
+<view>
+    <swiper class="swiper" indicator-dots="true" autoplay="true" circular="true">
+    <block wx:for="{{top}}">
+    <navigator url="../detail/detail?id={{item.id}}">
+        <swiper-item>
+            <image class="slide-img" src="{{item.image}}">
+            <text class="title">{{item.title}}</text>    
+            </image>
+        </swiper-item>
+    </navigator>
+    </block>
+    </swiper>
+    <block wx:for="{{all}}">
+        <navigator url="../detail/detail?id={{item.id}}">
+        <view class="news-item">
+            <view class="news-item-left">
+                <text class="left-title">{{item.title}}</text>
+            </view>
+            <view class="news-item-right">
+                <image class="right-img"src="{{item.images[0]}}"></image>
+            </view>
+        </view>
+        </navigator>
+    </block>
+</view>
