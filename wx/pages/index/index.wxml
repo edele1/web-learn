@@ -22,4 +22,16 @@
         </view>
         </navigator>
     </block>
+    <block wx:for="{{before}}">
+        <navigator url="../detail/detail?id={{item.id}}">
+        <view class="news-item">
+            <view class="news-item-left">
+                <text class="left-title">{{item.title}}</text>
+            </view>
+            <view class="news-item-right">
+                <image class="right-img"src="{{item.images[0]}}"></image>
+            </view>
+        </view>
+        </navigator>
+    </block>
 </view>

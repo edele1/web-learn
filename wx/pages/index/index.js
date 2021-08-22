@@ -6,7 +6,8 @@ Page({
   data: {
     top:'',
     all:'',
-   
+    before:[],
+    date:''
   },
   // 事件处理函数
   bindViewTap() {
@@ -18,33 +19,27 @@ Page({
    wx.request({
      url: 'https://news-at.zhihu.com/api/3/news/latest',
      success:function(res){
-      //  console.log(res);
       that.setData({
         'top':res.data.top_stories,
-        'all':res.data.stories
+        'all':res.data.stories,
+        'date':res.data.date,
       })
-     }
+     },})},
+     getdatalist: function () { 
+      var that = this;
+       wx.request({
+         url: 'http://news-at.zhihu.com/api/3/news/before/'+that.data.date,
+         success:function(res){
+           that.setData({
+             'before':(that.data.before).concat(res.data.stories),
+             'date':res.data.date,
+           })
+         }
    })
   },
-  getUserProfile(e) {
-    // 推荐使用wx.getUserProfile获取用户信息，开发者每次通过该接口获取用户个人信息均需用户确认，开发者妥善保管用户快速填写的头像昵称，避免重复弹窗
-    wx.getUserProfile({
-      desc: '展示用户信息', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
-      success: (res) => {
-        console.log(res)
-        this.setData({
-          userInfo: res.userInfo,
-          hasUserInfo: true
-        })
-      }
-    })
+  onReachBottom: function () { //触底开始下一页
+    var that=this
+    that.getdatalist();
   },
-  getUserInfo(e) {
-    // 不推荐使用getUserInfo获取用户信息，预计自2021年4月13日起，getUserInfo将不再弹出弹窗，并直接返回匿名的用户个人信息
-    console.log(e)
-    this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
-    })
-  }
+
 })

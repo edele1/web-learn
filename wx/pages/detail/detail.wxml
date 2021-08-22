@@ -1,4 +1,5 @@
 <!--pages/detail/detail.wxml-->
+<import src="../../wxParse/wxParse.wxml"/>
 <view>
     <view class="art-header">
         <image src="{{art.image}}"class="art-img"></image>
@@ -6,6 +7,6 @@
         <view class="art-source">{{art.image_source}}</view>
     </view>
     <view class="content">
-        {{content}}
+        <template is="wxParse" data="{{wxParseData:content.nodes}}"/>
     </view>
 </view>

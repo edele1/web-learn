@@ -21,21 +21,17 @@
     height: 200rpx;
     margin: 7px auto;
     box-shadow: 0 0 5px 0 #ccc;
-    position: relative;
+    display: flex;
+    align-items: center;
 }
 .news-item-left{
-    width: 70%;
-    height: 100%;
-    position: absolute;
-    left: 0;
     padding: 40rpx 15rpx;
 }
 .news-item-right{
-    width: 25%;
-    height: 95%;
-    position: absolute;
-    right: 0;
-    top: 2%;
+    width: 30%;
+    height: 70%;
+    padding-right: 15rpx;
+    margin-left: auto;
 }
 .news-item-right image{
     width: 100%;

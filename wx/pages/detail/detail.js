@@ -1,4 +1,5 @@
 // pages/detail/detail.js
+var WxParse = require('../../wxParse/wxParse.js');
 Page({
 
     /**
@@ -22,7 +23,7 @@ Page({
             // console.log(res)
             that.setData({
                 'art':res.data,
-                'content':res.data.body
+                'content':WxParse.wxParse('content','html',res.data.body,that,0)                
             })
         }
         })
